@@ -78,7 +78,7 @@ public class EmployeeController {
         //查询所有的部门信息
         List<String> departments = employeeDao.findAllDepartment();
         model.addAttribute("departments",departments);
-        return "emp/nyInfo";
+        return "/emp/myInfo";
     }
 
     @PostMapping("/updateMy")
