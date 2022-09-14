@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>Signin Template for Bootstrap</title>
+		<!-- Bootstrap core CSS -->
+		<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+		<!-- Custom styles for this template -->
+		<link th:href="@{/css/signin.css}" rel="stylesheet">
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	</head>
+
+	<body class="text-center">
+<!--	th:action="@{/register/doRegister}"-->
+		<form class="form-signin" method="post">
+			<img class="mb-4" th:src="@{/img/bootstrap-solid.svg}" alt="" width="72" height="72">
+			<input id="email" type="email" name="username" class="form-control" th:placeholder="邮箱" required="" autofocus="">
+			<input type="text" id="code" name = "code" class="form-control" th:placeholder="验证码" required="">
+			<input type="password" id="password" name = "password" class="form-control" th:placeholder="密码" required="">
+			<button class="btn btn-lg btn-primary btn-block" type="button" id="btnGET">获取验证码</button>
+			<button class="btn btn-lg btn-primary btn-block" type="button" id="re">注册</button>
+			<p class="mt-5 mb-3 text-muted">© 2021-2022</p>
+		</form>
+		<script>
+			$(function () {
+				$('#btnGET').on('click', function () {
+					var email = document.getElementById("email").value
+					$.get('http://localhost:8080/register/sendCode/' + email, function (res) {
+						console.log(res)
+					})
+				})
+			})
+
+			$(function () {
+				$('#re').on('click', function () {
+					var email = document.getElementById("email").value
+					var code = document.getElementById("code").value
+					var password = document.getElementById("password").value
+					$.ajax({
+						type: 'POST',
+						url: 'http://localhost:8080/register/doRegister',
+						data: {
+							username: email,
+							code: code,
+							password: password
+						},
+						success: function (res) {
+							if (res === "注册成功"){
+								alert("注册成功")
+								top.location.href = "http://localhost:8080/user/toLogin"
+							}else {
+								alert("验证码错误")
+							}
+						}
+					})
+				})
+			})
+		</script>
+	</body>
+
+
+
+</html>

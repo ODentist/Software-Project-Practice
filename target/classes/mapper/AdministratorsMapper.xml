@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.odentist.dao.AdministratorsMapper">
+    <insert id="save" parameterType="com.odentist.pojo.Administrators">
+        insert into administrators(username,password,role) values (#{username},#{password},#{role})
+    </insert>
+
+    <select id="getAll"  resultType="com.odentist.pojo.Administrators">
+        select * from administrators where role = 'administrators'
+    </select>
+
+    <select id="getAdministratorsById" parameterType="Integer" resultType="com.odentist.pojo.Administrators">
+        select * from administrators where id = #{id}
+    </select>
+
+    <delete id="delete" parameterType="Integer">
+        delete from administrators where id = #{id}
+    </delete>
+
+
+    <update id="updAdministratorsById" parameterType="com.odentist.pojo.Administrators">
+        update administrators set password = #{password},role = #{role} where id = #{id}
+    </update>
+    <select id="findAdministratorsByUserName" parameterType="String" resultType="com.odentist.pojo.Administrators">
+        select * from administrators where username = #{username}
+    </select>
+</mapper>

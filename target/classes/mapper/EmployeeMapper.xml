@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.odentist.dao.EmployeeMapper">
+   <insert id="save" parameterType="com.odentist.pojo.Employee">
+        insert into emp(last_name,email,gender,department_name,birth,password,role) values (#{lastName},#{email},#{gender},#{departmentName},#{birth},'123456','emp')
+   </insert>
+
+   <select id="getAll"  resultType="com.odentist.pojo.Employee">
+       select * from emp
+   </select>
+
+   <select id="getEmployeeById" parameterType="Integer" resultType="com.odentist.pojo.Employee">
+       select * from emp where id = #{id}
+   </select>
+
+   <delete id="delete" parameterType="Integer">
+       delete from emp where id = #{id}
+   </delete>
+
+   <select id="findAllDepartment" resultType="String">
+       select department_name from emp group by department_name
+   </select>
+
+    <update id="updEmpById" parameterType="com.odentist.pojo.Employee">
+        update emp set last_name = #{lastName},email = #{email},gender = #{gender},department_name = #{departmentName},birth = #{birth} where id = #{id}
+    </update>
+    <select id="findEmpByEmail" parameterType="String" resultType="com.odentist.pojo.Employee">
+        select * from emp where email = #{name}
+    </select>
+
+    
+</mapper>
